@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "e112e069-b374-4dfd-9bc5-388909e1a785",
+		"name": "Spring  API assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20988651"
+	},
+	"item": [
+		{
+			"name": "Apilayer get conversion rates for EUR",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apiKey",
+						"value": "ylWo1MKcMWLgmw19BJ8VI8RS7BmSsIhU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.apilayer.com/exchangerates_data/latest?base=EUR&symbols=EUR,USD,SEK",
+					"protocol": "https",
+					"host": [
+						"api",
+						"apilayer",
+						"com"
+					],
+					"path": [
+						"exchangerates_data",
+						"latest"
+					],
+					"query": [
+						{
+							"key": "base",
+							"value": "EUR"
+						},
+						{
+							"key": "symbols",
+							"value": "EUR,USD,SEK"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ApiLayer get convert value I",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apiKey",
+						"value": "ylWo1MKcMWLgmw19BJ8VI8RS7BmSsIhU",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://api.apilayer.com/exchangerates_data/convert?to=EUR&from=USD&amount=1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"apilayer",
+						"com"
+					],
+					"path": [
+						"exchangerates_data",
+						"convert"
+					],
+					"query": [
+						{
+							"key": "to",
+							"value": "EUR"
+						},
+						{
+							"key": "from",
+							"value": "USD"
+						},
+						{
+							"key": "amount",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Apilayer get convert value II",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apiKey",
+						"value": "{{apiLayerAPIKey}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://api.apilayer.com/exchangerates_data/convert?from=EUR&to=SEK&amount=1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"apilayer",
+						"com"
+					],
+					"path": [
+						"exchangerates_data",
+						"convert"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "EUR"
+						},
+						{
+							"key": "to",
+							"value": "SEK"
+						},
+						{
+							"key": "amount",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OK Spring api test conversion from EUR to SEK",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiEndpointURL}}/api/v1/exchange/EUR/SEK/124.4",
+					"host": [
+						"{{apiEndpointURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"exchange",
+						"EUR",
+						"SEK",
+						"124.4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FAIL Spring api test conversion from EUR to SEK -unknown currency",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiEndpointURL}}/api/v1/exchange/EUR/SEKK/124.4",
+					"host": [
+						"{{apiEndpointURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"exchange",
+						"EUR",
+						"SEKK",
+						"124.4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FAIL Spring api test conversion from EUR to SEK -wrong amount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiEndpointURL}}/api/v1/exchange/EUR/SEKK/124,4",
+					"host": [
+						"{{apiEndpointURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"exchange",
+						"EUR",
+						"SEKK",
+						"124,4"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiLayerAPIKey",
+			"value": "ylWo1MKcMWLgmw19BJ8VI8RS7BmSsIhU",
+			"type": "string"
+		},
+		{
+			"key": "apiEndpointURL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

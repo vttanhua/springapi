@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property resource="application.properties" />
+	
+	<appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>MyAppRolling.log</file>
+        <encoder>
+            <pattern>%d [%thread] %-5level %-50logger{40} - %msg%n</pattern>
+        </encoder>
+         
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logging.path}${logging.file}-rolling-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${logging.maxFileSize}</maxFileSize>
+            <maxHistory>${logging.maxHistory}</maxHistory>
+            <totalSizeCap>${logging.totalSizeCap}</totalSizeCap>
+            <cleanHistoryOnStart>${logging.cleanHistoryOnStart}</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+    
+	<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+	<property name="LOG_FILE" value="${logging.path}${logging.file}.log"/>
+	<include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+	<include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+	<root level="${logging.level}">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="ROLLINGFILE" />
+	</root>
+	<logger name="org.springframework.web" level="DEBUG"/>
+</configuration>
+

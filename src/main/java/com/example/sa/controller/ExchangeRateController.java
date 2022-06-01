@@ -1,5 +1,6 @@
 package com.example.sa.controller;
 
+
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -8,8 +9,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionFailedException;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,9 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.sa.dto.ExchangeResponse;
-import com.example.sa.entity.ExchangeRate;
 import com.example.sa.enums.Currency;
-import com.example.sa.service.ExchangeRatesFetchService;
 import com.example.sa.service.ExchangeService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +53,7 @@ public class ExchangeRateController {
     	body.put("timestamp", LocalDateTime.now());
     	body.put("status", HttpStatus.NOT_FOUND);
     	body.put("error", ex.getMessage());
-        log.error("Unable to complete transaction", ex);
+        log.error("Unable to get conversion!", ex);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_TYPE.toString(), MediaType.APPLICATION_JSON.toString());
         return new ResponseEntity<>(body,headers,HttpStatus.NOT_FOUND);

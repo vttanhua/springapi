@@ -77,7 +77,7 @@ public class ExchangeRatesFetchService {
 			forEach(baseCurrency ->{		
 				log.info("Fetcing currency conversions for base {} to {}",baseCurrency,targetCurrencies);
 				ExchangeRatesResponse  exchangeRatesResponse = exchangeRatesClient.get(exchangeRatesAPIKey, baseCurrency.toString(), targetCurrencies);
-				log.info("Exchange rates are {}",exchangeRatesResponse);
+				log.debug("Exchange rates are {}",exchangeRatesResponse);
 				if(exchangeRatesResponse.isSuccess())
 					newExchangeRates.add(exchangeRatesResponse);
 				else

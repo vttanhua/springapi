@@ -20,6 +20,9 @@ import com.example.sa.entity.ExchangeRate;
 import com.example.sa.enums.Currency;
 import com.example.sa.repository.ExchangeRateRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @ExtendWith(MockitoExtension.class)
 class ExchangeServiceTest {
 	static ExchangeRate exchangeRateEURSEK;
@@ -57,11 +60,13 @@ class ExchangeServiceTest {
 
 	@Test
 	void testThatConversionToAndFromSomeCurrencyReturnsOriginalAmount() {
+		log.info("Starting testThatConversionToAndFromSomeCurrencyReturnsOriginalAmount*****");
 		when(exchangeRateRepository.findByBaseCurrencyAndToCurrency(Currency.EUR, Currency.SEK)).thenReturn(Optional.of(exchangeRateEURSEK));
 		when(exchangeRateRepository.findByBaseCurrencyAndToCurrency(Currency.SEK, Currency.EUR)).thenReturn(Optional.of(exchangeRateSEKEUR));
 		ExchangeResponse r1 = service.getExchange(Currency.EUR, Currency.SEK, this.exchangeAmount);
 		ExchangeResponse r2 = service.getExchange(r1.getTo(), r1.getFrom(), r1.getToAmount());
 		assertEquals(this.exchangeAmount,r2.getToAmount());
+		assertNotEquals(r1.getToAmount(),r2.getToAmount());
 		assertEquals(r1.getTo(),r2.getFrom());
 		assertEquals(r1.getFrom(),r2.getTo());
 		

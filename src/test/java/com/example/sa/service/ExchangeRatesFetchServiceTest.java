@@ -106,6 +106,7 @@ class ExchangeRatesFetchServiceTest {
 
 	@Test
 	void testIsExchangeRateUpdatedWhenAlreadyExists() {
+		log.info("Starting testIsExchangeRateUpdatedWhenAlreadyExists*****");
 		ArgumentCaptor<List<ExchangeRate>> a= ArgumentCaptor.forClass(List.class);
 		service.getLatestExchangeRates();
 		verify(exchangeRateRepository,times(2)).saveAll(a.capture());//Save and update separated
@@ -118,6 +119,7 @@ class ExchangeRatesFetchServiceTest {
 	
 	@Test
 	void testIsExchangeRateCreatedWhenNotExists() {
+		log.info("Starting testIsExchangeRateCreatedWhenNotExists*****");
 		ArgumentCaptor<List<ExchangeRate>> a= ArgumentCaptor.forClass(List.class);
 		service.getLatestExchangeRates();
 		verify(exchangeRateRepository,times(2)).saveAll(a.capture());//Save and update separated

@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<!-- you have to add all profiles here too! -->
-	<springProfile name="production">
+	<springProfile name="unittest">
 		<property resource="application.properties" />
-		<property resource="application-production.properties" />
-	</springProfile>	
-	
-	<springProfile name="default">
-		<property resource="application.properties" />
-	</springProfile>	
+		<property resource="application-unittest.properties" />
+	</springProfile>
 	
 	<appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>MyAppRolling.log</file>

@@ -27,7 +27,7 @@ public class ExchangeService {
 	}
 	
 	public ExchangeResponse getExchange(Currency from, Currency to, Double fromAmount) {
-		log.debug("Calling getExchange from {} to {} and fromAmount {}",from, to, fromAmount);
+		log.info("Calling getExchange from {} to {} and fromAmount {}",from, to, fromAmount);
 		ExchangeRate exchangeRate = exchangeRateRepository.findByBaseCurrencyAndToCurrency(from, to)
 						.orElseThrow(() ->new NoSuchElementException(String.format("No conversion from %s to %s exists!",from, to)));
 		return ExchangeResponse.builder()

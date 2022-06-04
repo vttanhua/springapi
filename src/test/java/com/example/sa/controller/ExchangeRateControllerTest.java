@@ -58,6 +58,7 @@ public class ExchangeRateControllerTest {
     
     @Test
     public void getExchangeOKCase() {
+    	log.info("Starting getExchangeOKCase()*****");
     	when(exchangeServiceMock.getExchange(FROM_CURRENCY, TO_CURRENCY, FROM_AMOUNT)).thenReturn(exchangeResponseMock);
 
     	when(exchangeResponseMock.getToAmount()).thenReturn(TO_AMOUNT);
@@ -68,6 +69,7 @@ public class ExchangeRateControllerTest {
     
     @Test
     public void getExchangeNotFoundCase() {
+    	log.info("Starting getExchangeNotFoundCase()*****");
     	when(exchangeServiceMock.getExchange(FROM_CURRENCY, TO_CURRENCY, FROM_AMOUNT))
     		.thenThrow(new NoSuchElementException(String.format("No conversion from %s to %s exists!",FROM_CURRENCY,  TO_CURRENCY)));
 

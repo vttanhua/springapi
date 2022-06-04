@@ -8,6 +8,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.example.sa.controller.ExchangeRateControllerTest;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 class SSNServiceTest {
 
 	@BeforeAll
@@ -28,6 +33,7 @@ class SSNServiceTest {
 
 	@Test
 	void test() {
+		log.info("Starting test*****");
 		//TODO do your ssn checks here.
 		//fail("Not yet implemented");
 	}

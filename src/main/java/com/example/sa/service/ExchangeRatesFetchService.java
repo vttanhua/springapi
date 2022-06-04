@@ -37,6 +37,7 @@ public class ExchangeRatesFetchService {
 	}
 	
 	private void saveOrUpdateLatestCurrencyData(List<ExchangeRatesResponse>  exchangeRatesResponses) {
+		log.info("Starting saveOrUpdateLatestCurrencyData");
 		List<ExchangeRate> newRates = new ArrayList<>();
 		List<ExchangeRate> updatedRates = new ArrayList<>();
 		exchangeRatesResponses.forEach( (exchangeRatesResponse)->{
@@ -64,7 +65,7 @@ public class ExchangeRatesFetchService {
 		exchangeRateRepository.saveAll(newRates);
 		log.info("Saved {} new exchange rates.",newRates.size());
 		exchangeRateRepository.saveAll(updatedRates);
-		log.info("Updated {} new exchange rates.",updatedRates.size());
+		log.info("Updated {} exchange rates.",updatedRates.size());
 	}
 	
 	public void getLatestExchangeRates() {

@@ -50,6 +50,7 @@ public class SSNService {
 	 * @return
 	 */
 	private SSNValidatorResponse validateBirthDatePart(String datePart, String centurySeparator, String datePattern) {
+		log.info("Starting validateBirthDatePart");
 		SSNValidatorResponse response = new SSNValidatorResponse(false, "Undefined internal error");
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(datePattern);
    	 	try {
@@ -65,6 +66,7 @@ public class SSNService {
 	}
 	
 	private SSNValidatorResponse validateControlCharacter(String datePart, String individualNumber, String checkChar) {
+		log.info("Starting validateControlCharacter");
 		SSNValidatorResponse response = new SSNValidatorResponse(false, String.format("Control character %s is not valid",checkChar));
 		int sum = Integer.parseInt(datePart+individualNumber);
 		int modulo = sum % FIN_MODULO_BASE;
@@ -83,6 +85,7 @@ public class SSNService {
 	 * @return
 	 */
 	public SSNValidatorResponse validate(Country country, String ssnInput) {
+		log.info("Starting validate");
 		SSNValidatorResponse response = new SSNValidatorResponse(false, "Undefined internal error");
 		String ssn = ssnInput.toUpperCase();
 		Pattern pattern = Pattern.compile(FIN_SSN_PATTERN, Pattern.CASE_INSENSITIVE);

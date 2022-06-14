@@ -21,6 +21,9 @@ import com.example.sa.dto.Login;
 import com.example.sa.entity.Client;
 import com.example.sa.service.ClientService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/client")
 public class ClientController {

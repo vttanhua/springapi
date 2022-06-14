@@ -53,3 +53,30 @@ The following guides illustrate how to use some features concretely:
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
 
+
+### Local development
+aws s3api create-bucket --bucket local-s3-bucket  --endpoint-url http://localhost:4566
+aws s3api put-object  --bucket local-s3-bucket  --key testS3.txt  --body testS3.txt  --endpoint-url http://localhost:4566
+aws s3api get-object  --bucket local-s3-bucket  --key testS3.txt  --endpoint-url http://localhost:4566  testS3Output.txt
+
+### Commands
+
+docker-compose up
+If you have modified something remember to use:
+docker-compose up --build
+
+mvn spring-boot:build-image -Dmaven.test.skip -Dspring.profiles.active=default  -Dspring-boot.build-image.imageName=vttanhua/springapi:0.0.1-SNAPSHOT
+docker run -it -p8080:8080 springapi:0.0.1-SNAPSHOT  "-Dspring.profiles.active=default"
+
+mvn clean package -Dspring.profiles.active=default -Dmaven.test.skip
+
+run application using default profile:
+mvn spring-boot:run -Dspring.profiles.active=default
+
+mvn spring-boot:run -Dspring.profiles.active=production
+
+run single test:
+mvn -Dtest=ExchangeRatesFetchServiceTest#testIsExchangeRateCreatedWhenNotExists test
+
+run single test with profile:
+mvn -Dtest=ExchangeRatesFetchServiceTest#testIsExchangeRateCreatedWhenNotExists test -Dspring.profiles.active=unittest

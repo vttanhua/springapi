@@ -1,0 +1,61 @@
+version: '3.3'
+
+services:
+#  springapi:
+#    image: vttanhua/springapi:0.0.1-SNAPSHOT
+#    ports:
+#      - 8080:8080
+#    environment:
+#      - spring.profiles.active=production
+#    volumes:
+#      - ./init:/docker-entrypoint-initaws.d        
+  web:
+    build:
+      context: .
+    ports:
+      - 8080:8080 
+    environment:
+      - spring.profiles.active=production    
+    restart: always  
+    volumes:
+      - ./init:/docker-entrypoint-initaws.d      
+  postgres:
+    image: postgres:12.9
+    ports:
+      - 5532:5432
+    environment:
+      - POSTGRES_USER=stratospheric
+      - POSTGRES_PASSWORD=stratospheric
+      - POSTGRES_DB=stratospheric
+    volumes: 
+        - db:/var/lib/postgresql/data      
+  activemq:
+    image: stratospheric/activemq-docker-image
+    ports:
+      - 5672:5672
+      - 61613:61613
+      - 61614:61614
+      - 61616:61616
+  localstack:
+    image: localstack/localstack:0.12.9.1
+    ports:
+      - 4566:4566
+    environment:
+      - SERVICES=sqs,ses,dynamodb,s3
+      - DEFAULT_REGION=eu-north-1
+    volumes:
+      - ./init:/docker-entrypoint-initaws.d
+  keycloak:
+    image: jboss/keycloak:12.0.4
+    ports:
+      - 8888:8080
+    environment:
+      - KEYCLOAK_USER=keycloak
+      - KEYCLOAK_PASSWORD=keycloak
+      - DB_VENDOR=h2
+      - JAVA_OPTS=-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/tmp/stratospheric-realm.json
+    volumes:
+      - ./init:/tmp
+volumes:
+  db:
+    driver: local

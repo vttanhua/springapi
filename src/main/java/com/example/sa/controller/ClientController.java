@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/client")
 public class ClientController {
-   
+  /* 
     @Autowired
     private ClientService clientService;
     
@@ -53,5 +53,6 @@ public class ClientController {
     public List<Client> getAllUsers() {
         return clientService.getAll();
     }
+    */
 
 }

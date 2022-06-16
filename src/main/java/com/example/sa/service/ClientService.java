@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class ClientService {
-
+/*
     private ClientRepository clientRepository;
 
     private AuthenticationManager authenticationManager;
@@ -44,13 +44,13 @@ public class ClientService {
         this.jwtProvider = jwtProvider;
     }
 
-    /**
+    /*
      * Sign in a user into the application, with JWT-enabled authentication
      *
      * @param username  username
      * @param password  password
      * @return Optional of the Java Web Token, empty otherwise
-     */
+     *
     public Optional<String> signin(String clientId, String clientSecret) {
         log.info("New Client attempting to sign in");
         Optional<String> token = Optional.empty();
@@ -82,4 +82,5 @@ public class ClientService {
     public List<Client> getAll() {
         return clientRepository.findAll();
     }
+    **/
 }

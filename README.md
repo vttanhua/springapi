@@ -61,6 +61,12 @@ aws s3api get-object  --bucket local-s3-bucket  --key testS3.txt  --endpoint-url
 
 ### Commands
 
+keycloak uses hostname as jwt issuer, because that is different for internal and external in docker:
+mvn spring-boot:run -Dmaven.test.skip -Dspring-boot.run.profiles=dev -Dspring-boot.run.arguments="--KEYCLOAK_SERVER=http://localhost:8888"
+
+seems that attempts changing exposed jboss port doesn't work 
+(check  command: ["-Djboss.http.port=8100"] or "-Djboss.socket.binding.port-offset=0")--> separate docker 
+
 docker-compose up
 If you have modified something remember to use:
 docker-compose up --build

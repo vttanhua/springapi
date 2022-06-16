@@ -16,21 +16,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.example.sa.security.ClientDetailsService;
 
 
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+//@Configuration
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfigurationOLD extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ClientDetailsService clientDetailsService;
 
     
-    public WebSecurityConfiguration(ClientDetailsService clientDetailsService) {
+    public WebSecurityConfigurationOLD(ClientDetailsService clientDetailsService) {
     	this.clientDetailsService = clientDetailsService;
     }
     
     @Override
     public void configure(WebSecurity web) throws Exception {
-        // Allow swagger to be accessed without authentication
+        // Allow access to everywhere
         web.ignoring().antMatchers("/**");//
         
         // No session will be created or used by spring security

@@ -6,6 +6,11 @@
 		<property resource="application-production.properties" />
 	</springProfile>	
 	
+	<springProfile name="dev">
+		<property resource="application.properties" />
+		<property resource="application-dev.properties" />
+	</springProfile>
+	
 	<springProfile name="default">
 		<property resource="application.properties" />
 	</springProfile>	

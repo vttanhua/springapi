@@ -17,11 +17,12 @@ public class IndexController {
 	
 	@GetMapping
 	public String getIndex(Model model, @AuthenticationPrincipal OidcUser user) {
-		/*OidcUser user2 = (OidcUser) SecurityContextHolder
+		if(user != null) {
+		OidcUser user2 = (OidcUser) SecurityContextHolder
 				.getContext()
 				.getAuthentication()
 				.getPrincipal();
-				*/
+		}
 		return "index";
 	}
 

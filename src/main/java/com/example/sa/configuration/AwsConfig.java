@@ -1,6 +1,8 @@
 package com.example.sa.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
@@ -12,6 +14,8 @@ import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderAsyncClientBu
 @Profile("!dev")
 public class AwsConfig {
 
+	@Bean
+	@ConditionalOnProperty(prefix = "custom", name = "use-cognito-as-identity-provider", havingValue = "true")
 	public AWSCognitoIdentityProvider awsCognitoIdentityProvider(
 			@Value("${cloud.aws.region.static}") String region,
 			AWSCredentialsProvider awsCredentialsProvider) {

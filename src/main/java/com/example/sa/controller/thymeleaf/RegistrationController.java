@@ -15,6 +15,9 @@ import com.amazonaws.services.cognitoidp.model.AWSCognitoIdentityProviderExcepti
 import com.example.sa.dto.aws.Registration;
 import com.example.sa.service.aws.RegistrationService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/register")
 public class RegistrationController {
@@ -37,6 +40,7 @@ public class RegistrationController {
 			BindingResult bindingResult, 
 			Model model,
 			RedirectAttributes redirectAttributes) {
+		log.info("Registering user {}",registration);
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("registration", registration);
 			return "register";

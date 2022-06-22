@@ -3,7 +3,7 @@ create table exchange_rate (
 	, created_at timestamp
 	, modified_at timestamp
 	, base_currency varchar(10)
-	, rate double
+	, rate float(53) 
 	, timestamp bigint
 	, to_currency varchar(10)
 	, primary key (id)

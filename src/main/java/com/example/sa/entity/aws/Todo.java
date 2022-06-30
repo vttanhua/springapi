@@ -54,4 +54,9 @@ public class Todo {
     inverseJoinColumns = @JoinColumn(name = "collaborator_id")
   )
   private List<Person> collaborators;
+  
+  public void addCollaborator(Person person) {
+	    this.collaborators.add(person);
+	    person.getCollaborativeTodos().add(this);
+	  }
 }

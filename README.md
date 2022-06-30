@@ -56,7 +56,9 @@ The following guides illustrate how to use some features concretely:
 
 ### Local development
 aws s3api create-bucket --bucket local-s3-bucket  --endpoint-url http://localhost:4566
+
 aws s3api put-object  --bucket local-s3-bucket  --key testS3.txt  --body testS3.txt  --endpoint-url http://localhost:4566
+
 aws s3api get-object  --bucket local-s3-bucket  --key testS3.txt  --endpoint-url http://localhost:4566  testS3Output.txt
 
 ### Commands

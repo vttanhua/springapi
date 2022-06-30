@@ -55,6 +55,8 @@ services:
     environment:
       - SERVICES=sqs,ses,dynamodb,s3
       - DEFAULT_REGION=eu-north-1
+      - AWS_ACCESS_KEY_ID=YourAccessKey
+      - AWS_SECRET_ACCESS_KEY=YourSecretKey
     volumes:
       - ./init:/docker-entrypoint-initaws.d
   keycloak:

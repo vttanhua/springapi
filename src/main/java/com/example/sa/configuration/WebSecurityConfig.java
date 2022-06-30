@@ -1,5 +1,7 @@
 package com.example.sa.configuration;
 
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,13 +17,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 protected void configure(HttpSecurity http) throws Exception {	
 	http
 		.csrf()
+	    .ignoringAntMatchers(
+	    	 "/stratospheric-todo-updates/**",
+	    	 "/websocket/**"
+	    	 )
 		.and()
 		.oauth2Login()
 		.and()
 		.authorizeRequests()
-			.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-			.permitAll()
-		.mvcMatchers("/", "/health", "/register","/api/v1/","/health", "/register").permitAll()
+		.requestMatchers(EndpointRequest.to(HealthEndpoint.class)).permitAll()
+			.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+		.mvcMatchers("/",  "/register").permitAll()
 		.anyRequest().authenticated();
 	}
 /*

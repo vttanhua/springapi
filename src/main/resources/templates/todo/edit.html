@@ -46,7 +46,9 @@
                   class="form-control"
                   id="priority"
                   placeholder="Please select a priority."
+                  required
                   >
+                  <option th:each="priorityValue: ${T(com.example.sa.entity.aws.Priority).values()}"
                     th:value="${priorityValue}"
                     th:text="${priorityValue.displayValue}"></option>
           </select>

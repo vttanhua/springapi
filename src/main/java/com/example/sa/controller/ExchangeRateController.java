@@ -24,6 +24,8 @@ import com.example.sa.dto.ExchangeResponse;
 import com.example.sa.enums.Currency;
 import com.example.sa.service.ExchangeService;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -31,11 +33,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(path = "/exchange")
 public class ExchangeRateController {
 
-	ExchangeService exchangeService;
+	private final ExchangeService exchangeService;
+	private final MeterRegistry meterRegistry;
 	
 	@Autowired
-	public ExchangeRateController(ExchangeService exchangeService) {
+	public ExchangeRateController(ExchangeService exchangeService,  MeterRegistry meterRegistry) {
 		this.exchangeService = exchangeService;
+		this.meterRegistry = meterRegistry;
 	}
 	
 	@GetMapping(value = "/{fromCurrency}/{toCurrency}/{amount}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,6 +53,10 @@ public class ExchangeRateController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Object> return404(NoSuchElementException ex) {
+		meterRegistry.counter(
+				 "vttanhua.exchangeService.convert_from_to",
+				 Tags.of("outcome", "notfound"))
+				 .increment();	
     	Map<String, Object> body = new LinkedHashMap<>();
     	body.put("timestamp", LocalDateTime.now());
     	body.put("status", HttpStatus.NOT_FOUND);

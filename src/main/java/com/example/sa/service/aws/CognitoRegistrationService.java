@@ -21,18 +21,18 @@ public class CognitoRegistrationService implements RegistrationService{
 	private final AWSCognitoIdentityProvider awsCognitoIdentityProvider;
 	private final String userPoolId;
 	
-	//TODO not in use now
-	//private final MeterRegistry meterRegistry;
+
+	private final MeterRegistry meterRegistry;
 	
 	
 	@Autowired
 	public CognitoRegistrationService(@Value("${COGNITO_USER_POOL_ID}") String userPoolId,
 			AWSCognitoIdentityProvider awsCognitoIdentityProvider
-			//, MeterRegistry meterRegistry
+			, MeterRegistry meterRegistry
 			) {
 		this.awsCognitoIdentityProvider = awsCognitoIdentityProvider;
-		//this.meterRegistry = meterRegistry;
-		this.userPoolId = userPoolId;//"eu-north-1_GSg0P8AD5";//
+		this.meterRegistry = meterRegistry;
+		this.userPoolId = userPoolId;
 	}
 	
 	@Override
@@ -50,12 +50,17 @@ public class CognitoRegistrationService implements RegistrationService{
 		
 		awsCognitoIdentityProvider.adminCreateUser(registrationRequest);
 		
-//		Counter successCounter = Counter.builder("vttanhua.springapi.registration.signups")
-//				.description("Number of user registrations")
-//				.tag("outcome", "success")
-//				.register(meterRegistry)
-//				;
-//		successCounter.increment();
+		Counter successCounter = Counter.builder("vttanhua.springapi.registration.signups")
+				.description("Number of user registrations")
+				.tag("outcome", "success")
+				.register(meterRegistry)
+				;
+		successCounter.increment();
+		
+//		meterRegistry.counter(
+//				 "stratospheric.registration.users",
+//				 Tags.of("outcome", "success"))
+//				 .increment();		
 	}
 	
 

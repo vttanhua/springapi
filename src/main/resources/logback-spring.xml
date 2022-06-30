@@ -15,6 +15,16 @@
 		<property resource="application.properties" />
 	</springProfile>	
 	
+	<appender name="JSON" class="ch.qos.logback.core.ConsoleAppender">
+ 		<encoder class="de.siegmar.logbackawslogsjsonencoder.AwsJsonLogEncoder"/>
+	</appender>
+
+	  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+	    <encoder>
+	      <pattern>%highlight(%-5level) %cyan(%d{ISO8601}) [%blue(%-30t)] %yellow(%C{1.}): %msg%n%throwable</pattern>
+	    </encoder>
+	  </appender>
+	
 	<appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>MyAppRolling.log</file>
         <encoder>
@@ -34,11 +44,18 @@
 	<property name="LOG_FILE" value="${logging.path}${logging.file}.log"/>
 	<include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 	<include resource="org/springframework/boot/logging/logback/file-appender.xml" />
-	<root level="${logging.level.root}">
-		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="FILE" />
-		<appender-ref ref="ROLLINGFILE" />
-	</root>
+	<springProfile name="production">
+		<root level="${logging.level.root}">
+			<appender-ref ref="JSON" />
+		</root>
+	</springProfile>
+	<springProfile name="dev">
+		<root level="${logging.level.root}">
+			<appender-ref ref="JSON" />
+			<appender-ref ref="FILE" />
+			<appender-ref ref="ROLLINGFILE" />
+		</root>
+	</springProfile>
 	<logger name="org.springframework.web" level="${logging.level.root}"/>
 </configuration>
 

@@ -13,6 +13,7 @@ import com.example.sa.entity.aws.Person;
 import com.example.sa.repository.aws.PersonRepository;
 import com.example.sa.repository.aws.TodoRepository;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -37,6 +38,10 @@ public class DashboardService {
      .collect(Collectors.toList());
   }
 
+  @Timed(
+		  value = "vttanhua.springapi.getTodoListing",
+		  description = "Measure the time how long it takes to get todo listing"
+		  )
   public List<TodoDto> getAllOwnedAndSharedTodos(String email) {
 
     List<TodoDto> ownedTodos = todoRepository.findAllByOwnerEmailOrderByIdAsc(email)

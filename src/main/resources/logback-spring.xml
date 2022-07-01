@@ -51,7 +51,7 @@
 	</springProfile>
 	<springProfile name="dev">
 		<root level="${logging.level.root}">
-			<appender-ref ref="JSON" />
+			<appender-ref ref="CONSOLE" />
 			<appender-ref ref="FILE" />
 			<appender-ref ref="ROLLINGFILE" />
 		</root>

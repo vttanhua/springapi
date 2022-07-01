@@ -41,12 +41,37 @@
         <td>[[${#dates.format(file.lastModified, 'd. MMM. yyyy HH:mm:ss Z')}]]</td>
         <td>
           <a download target="_blank" th:href="${bucketLocation} + '/' + ${file.key}">
-            <i class="fas fa-download"></i> Download
+            <i class="fas fa-download"></i> Public Download
+          </a>
+        </td>
+                <td>
+          <a  download target="_blank" th:href="'S3Dashboard/download/?fileName=' + ${file.key}">
+            <i class="fas fa-download"></i> Private Download
           </a>
         </td>
       </tr>
     </table>
-  </div>
+  </div>  
+  
+  <div align="center">
+        <div><h2>Spring Boot File Upload to S3</h2></div>
+        <div>
+            <form th:action="@{/S3Dashboard}" method="post" enctype="multipart/form-data">
+                <p>
+                    Description:
+                    <input type="text" name="description" size="30" />
+                </p>
+                 
+                <p>
+                    <input type="file" name="file"  />
+                </p>
+                 
+                <p>
+                    <button type="submit">Submit</button>
+                </p>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>
